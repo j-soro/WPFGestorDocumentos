@@ -4,23 +4,21 @@ namespace WPFGestorDocumentos.Models
 {
     public class Book
     {
-        private int id { get; set; }
+        public int Id { get; set; }
 
-        private string title { get; set; }
+        public string Title { get; set; }
 
-        private string author { get; set; }
+        public string Author { get; set; }
 
-        private int year { get; set; }
+        public int Year { get; set; }
 
-        private int genre { get; set; }
+        public string Genre { get; set; }
 
-        private Image cover { get; set; }
+        public Image Cover { get; set; }
 
-        private float rating { get; set; }
+        public int Rating { get; set; }
 
-        private bool isfav { get; set; }
-
-        private int pages { get; set; }
+        public int Pages { get; set; }
 
     }
 }

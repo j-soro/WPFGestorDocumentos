@@ -4,47 +4,220 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFGestorDocumentos.Adapters;
 using WPFGestorDocumentos.Models;
+using WPFGestorDocumentos.Utility;
 
 namespace WPFGestorDocumentos.Repositories
 {
     internal class BookDataMapper
     {
-        public BookDataMapper(DbAdapter adapter)
+        public static List<Book>? Books { get; set; }
+        public static void AddBookToListOnly(Book book)
         {
-            // Assign DbAdapter object to the adapter class member.
-            using var con = new SQLiteConnection("Data Source =:memory: ");
+            if (!Books.Contains(book)) { Books.Add(book); }
+        }
+        public static void Create(Book book)
+        {
+            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using var cmd = new SQLiteCommand(con);
+            try
+            {
+                con.Open();
+                cmd.CommandText = "INSERT INTO Books(title, author, year, genre, cover, rating, pages) VALUES(@title, @author, @year, @genre, @cover, @rating, @pages)";
+
+                SQLiteParameter blobParam = new SQLiteParameter("@cover", System.Data.DbType.Binary);
+                blobParam.Value = CUtility.imageToByteArray(book.Cover);
+
+                cmd.Parameters.AddWithValue("@title", book.Title);
+                cmd.Parameters.AddWithValue("@author", book.Author);
+                cmd.Parameters.AddWithValue("@year", book.Year);
+                cmd.Parameters.AddWithValue("@genre", book.Genre);
+                cmd.Parameters.Add(blobParam);
+                cmd.Parameters.AddWithValue("@rating", book.Rating);
+                cmd.Parameters.AddWithValue("@pages", book.Pages);
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            AddBookToListOnly(book);
+        }
+        public static Book Read(long bookId)
+        {
+            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using var cmd = new SQLiteCommand(con);
+            try
+            {
+                con.Open();
+                cmd.CommandText = "SELECT FROM Books WHERE id = @id";
+                cmd.Parameters.AddWithValue("@id", bookId);
+                cmd.Prepare();
+
+                Book book = new Book();
+
+                using SQLiteDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    if (!rdr.IsDBNull(0))
+                    {
+                        book.Id = (int) Convert.ToInt64(rdr["id"]);
+                        book.Title = (string)rdr["title"];
+                        book.Author = (string)rdr["author"];
+                        book.Year = (int) Convert.ToInt64(rdr["year"]);
+                        book.Genre = (string)rdr["genre"];
+
+                        byte[] img_bytes = (byte[])rdr["cover"];
+                        book.Cover = CUtility.byteArrayToImage(img_bytes);
+
+                        book.Rating = (int) Convert.ToInt64(rdr["rating"]);
+                        book.Pages = (int) Convert.ToInt64(rdr["pages"]);
+                    }
+                }
+                rdr.Close();
+
+                AddBookToListOnly(book);
+                return book;
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            finally
+            {
+                con.Close();
+            }
+            return null;
+        }
+        public static void Update(Book book) 
+        {
+            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using var cmd = new SQLiteCommand(con);
+            try
+            {
+                con.Open();
+                cmd.CommandText = "UPDATE Books SET "+
+                    "title=@title, author=@author, year = @year, "+
+                    "genre=@genre, cover=@cover, rating=@rating, "+
+                    "pages=@pages "+
+                    $"WHERE id = {book.Id}";
+
+                SQLiteParameter blobParam = new SQLiteParameter("@cover", System.Data.DbType.Binary);
+                blobParam.Value = CUtility.imageToByteArray(book.Cover);
+
+                cmd.Parameters.AddWithValue("@title", book.Title);
+                cmd.Parameters.AddWithValue("@author", book.Author);
+                cmd.Parameters.AddWithValue("@year", book.Year);
+                cmd.Parameters.AddWithValue("@genre", book.Genre);
+                cmd.Parameters.Add(blobParam);
+                cmd.Parameters.AddWithValue("@rating", book.Rating);
+                cmd.Parameters.AddWithValue("@pages", book.Pages);
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            var old = Books.Find(c => c.Id == book.Id);
+            if (old != null)
+            {
+                old.Title = book.Title;
+                old.Author = book.Author;
+                old.Year = book.Year;
+                old.Genre = book.Genre;
+                old.Rating = book.Rating;
+                old.Pages = book.Pages;
+            }  
+        }
+        public static void Delete(Book book)
+        {
+            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using var cmd = new SQLiteCommand(con);
+            try
+            {
+                con.Open();
+                cmd.CommandText = $"DELETE FROM Books WHERE id = {book.Id}";
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
+            Books.Remove(book);
+        }
+        public static void ReadAll()
+        {
+            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using var cmd = new SQLiteCommand(con);
+            try
+            {
+                con.Open();
+                cmd.CommandText = "SELECT * FROM Books";
+
+                using SQLiteDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Book book = new Book();
+
+                    if (!rdr.IsDBNull(0))
+                    {
+                        book.Id = (int)Convert.ToInt64(rdr["id"]);
+                        book.Title = (string)rdr["title"];
+                        book.Author = (string)rdr["author"];
+                        book.Year = (int)Convert.ToInt64(rdr["year"]);
+                        book.Genre = (string)rdr["genre"];
+
+                        byte[] img_bytes = (byte[])rdr["cover"];
+                        book.Cover = CUtility.byteArrayToImage(img_bytes);
+
+                        book.Rating = (int)Convert.ToInt64(rdr["rating"]);
+                        book.Pages = (int)Convert.ToInt64(rdr["pages"]);
+                    }
+
+                    AddBookToListOnly(book);
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
-        public void select(long bookId)
+        public static List<Book> GetAllBooks()
         {
-            // 1. Fetch book record from db by bookId and using the injected db adapter.
-            // 2. Map fetched db record to a Book object using mapBook().
-            // 3. Add Book object to books using addBook().
-        }
-        public void insert(Book book)
-        {
-            // 1. Read the class members of object book.
-            // 2. Inject the values in an INSERT SQL statement as parameters.
-            // 3. Run the INSERT query and return last insert id.
-            // 4. Assign the last insert id to book's ID class member. 
-            // 4. Return book.
-        }
-        public void update(Book book) { ... }
-        public void delete(Book book) { ... }
+            ReadAll();
 
-        public void mapBook(List<Book> bookRecord)
-        {
-            // 1. Create a plain Book object.
-            // 2. Read bookRecord array and map each field to the corresponding 
-            //    class member of the Book object.
-            // 3. Return mapped Book object.
+            if (Books is null)
+            {
+                return null;
+            }
+            else
+            {
+                return Books;
+            }
         }
-
-        public void addBook(Book book)
-        {
-            // Add book to books collection.
-        }
-
     }
 }

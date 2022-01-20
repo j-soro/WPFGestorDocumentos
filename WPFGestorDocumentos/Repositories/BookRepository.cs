@@ -14,31 +14,26 @@ namespace WPFGestorDocumentos.Repositories
 
     internal class BookRepository : IBookRepository
     {
-        private BookDataMapper dataMapper;
+        //private readonly BookDataMapper BookDataMapper;
         public List<Book> GetAllBooks()
         {
-            return new List<Book>();
+            return BookDataMapper.GetAllBooks();
         }
-
-        public BookRepository(BookDataMapper dataMapper)
+        public static Book FindBook(long bookId)
         {
-            this.dataMapper = dataMapper;
+            return BookDataMapper.Read(bookId);
         }
-
-        public void FindBook(long bookId)
+        public static void StoreBook(Book book)
         {
-            // 1. Use bookMapper to fetch book record from the storage by bookId.
-            //    Notice that I said storage, not db: per definition, a repository 
-            //    hides the details regarding the storage type. The user (client) 
-            //    knows only that the book is placed... somewhere.
-            // 2. Return the fetched book object.
+            BookDataMapper.Create(book);
         }
-        public void StoreBook(Book book)
+        public static void UpdateBook(Book book)
         {
-            // 1. Use bookMapper to store the book.
-            // 2. Return the book (with last insert id in it).
+            BookDataMapper.Update(book);
         }
-        public void UpdateBook(Book book) { ... }
-        public void RemoveBook(Book book) { ... }
+        public static void RemoveBook(Book book)
+        {
+            BookDataMapper.Delete(book);
+        }
     }
 }

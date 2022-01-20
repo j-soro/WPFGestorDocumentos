@@ -11,7 +11,7 @@ namespace WPFGestorDocumentos.Models
     {
         private int id { get; set; }
 
-        private int userName { get; set; }
+        private int username { get; set; }
 
         private int password { get; set; }
 
