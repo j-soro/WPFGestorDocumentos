@@ -3,35 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFGestorDocumentos.Models;
+using WPFGestorDocumentos.Entities;
 
 namespace WPFGestorDocumentos.Repositories
 {
-    public interface IBookRepository
+    internal class BookRepository : IRepository<Book>
     {
-        List<Book> GetAllBooks();
-    }
+        public List<Book> Books { get; set; }
 
-    internal class BookRepository : IBookRepository
-    {
-        //private readonly BookDataMapper BookDataMapper;
-        public List<Book> GetAllBooks()
+        public BookRepository()
         {
-            return BookDataMapper.GetAllBooks();
+            Books = GetAll();
         }
-        public static Book FindBook(long bookId)
+
+        public List<Book> GetAll()
         {
-            return BookDataMapper.Read(bookId);
+            return BookDataMapper.GetAll();
         }
-        public static void StoreBook(Book book)
+
+        public void Create(Book book)
         {
             BookDataMapper.Create(book);
         }
-        public static void UpdateBook(Book book)
+        public Book Read(long bookId)
+        {
+            return BookDataMapper.Find(bookId);
+        }
+        public void Update(Book book)
         {
             BookDataMapper.Update(book);
         }
-        public static void RemoveBook(Book book)
+        public void Delete(Book book)
         {
             BookDataMapper.Delete(book);
         }

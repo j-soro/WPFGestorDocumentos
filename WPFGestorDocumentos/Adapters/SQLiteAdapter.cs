@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace WPFGestorDocumentos.Adapters
 {
-    public class DbAdapter
+    public class SQLiteAdapter
     {
-        private static SQLiteConnection? connection = null;
+        private static readonly SQLiteConnection? connection = null;
         public static SQLiteConnection? GetConnection() 
         {
             if (connection == null)

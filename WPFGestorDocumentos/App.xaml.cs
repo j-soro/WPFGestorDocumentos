@@ -19,12 +19,6 @@ namespace WPFGestorDocumentos
         public App()
         {
             CustomDependencyService.Register<LoginService>();
-            CustomDependencyService.Register<DatabaseConnectionService>();
-
-
-
-
-
         }
     }
 }

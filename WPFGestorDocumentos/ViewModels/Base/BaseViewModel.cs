@@ -18,7 +18,6 @@ namespace WPFGestorDocumentos.ViewModel.Base
             {
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
-            //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

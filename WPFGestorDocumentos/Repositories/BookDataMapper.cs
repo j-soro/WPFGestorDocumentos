@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFGestorDocumentos.Adapters;
-using WPFGestorDocumentos.Models;
+using WPFGestorDocumentos.Entities;
 using WPFGestorDocumentos.Utility;
 
 namespace WPFGestorDocumentos.Repositories
@@ -19,16 +19,17 @@ namespace WPFGestorDocumentos.Repositories
         }
         public static void Create(Book book)
         {
-            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using SQLiteConnection? con = SQLiteAdapter.GetConnection();
             using var cmd = new SQLiteCommand(con);
             try
             {
                 con.Open();
-                cmd.CommandText = "INSERT INTO Books(title, author, year, genre, cover, rating, pages) VALUES(@title, @author, @year, @genre, @cover, @rating, @pages)";
+                cmd.CommandText = "INSERT INTO Books(id, title, author, year, genre, cover, rating, pages) VALUES(@title, @author, @year, @genre, @cover, @rating, @pages)";
 
                 SQLiteParameter blobParam = new SQLiteParameter("@cover", System.Data.DbType.Binary);
                 blobParam.Value = CUtility.imageToByteArray(book.Cover);
 
+                cmd.Parameters.AddWithValue("@id", book.Id);
                 cmd.Parameters.AddWithValue("@title", book.Title);
                 cmd.Parameters.AddWithValue("@author", book.Author);
                 cmd.Parameters.AddWithValue("@year", book.Year);
@@ -50,9 +51,9 @@ namespace WPFGestorDocumentos.Repositories
             }
             AddBookToListOnly(book);
         }
-        public static Book Read(long bookId)
+        public static Book Find(long bookId)
         {
-            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using SQLiteConnection? con = SQLiteAdapter.GetConnection();
             using var cmd = new SQLiteCommand(con);
             try
             {
@@ -98,12 +99,12 @@ namespace WPFGestorDocumentos.Repositories
         }
         public static void Update(Book book) 
         {
-            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using SQLiteConnection? con = SQLiteAdapter.GetConnection();
             using var cmd = new SQLiteCommand(con);
             try
             {
                 con.Open();
-                cmd.CommandText = "UPDATE Books SET "+
+                cmd.CommandText = "UPDATE Books SET "+ "id=@id "+
                     "title=@title, author=@author, year = @year, "+
                     "genre=@genre, cover=@cover, rating=@rating, "+
                     "pages=@pages "+
@@ -112,6 +113,7 @@ namespace WPFGestorDocumentos.Repositories
                 SQLiteParameter blobParam = new SQLiteParameter("@cover", System.Data.DbType.Binary);
                 blobParam.Value = CUtility.imageToByteArray(book.Cover);
 
+                cmd.Parameters.AddWithValue("@id", book.Id);
                 cmd.Parameters.AddWithValue("@title", book.Title);
                 cmd.Parameters.AddWithValue("@author", book.Author);
                 cmd.Parameters.AddWithValue("@year", book.Year);
@@ -144,7 +146,7 @@ namespace WPFGestorDocumentos.Repositories
         }
         public static void Delete(Book book)
         {
-            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using SQLiteConnection? con = SQLiteAdapter.GetConnection();
             using var cmd = new SQLiteCommand(con);
             try
             {
@@ -165,7 +167,7 @@ namespace WPFGestorDocumentos.Repositories
         }
         public static void ReadAll()
         {
-            using SQLiteConnection? con = DbAdapter.GetConnection();
+            using SQLiteConnection? con = SQLiteAdapter.GetConnection();
             using var cmd = new SQLiteCommand(con);
             try
             {
@@ -206,7 +208,7 @@ namespace WPFGestorDocumentos.Repositories
             }
         }
 
-        public static List<Book> GetAllBooks()
+        public static List<Book> GetAll()
         {
             ReadAll();
 
