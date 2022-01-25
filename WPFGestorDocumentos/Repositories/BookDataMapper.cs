@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFGestorDocumentos.Adapters;
-using WPFGestorDocumentos.Entities;
+using WPFGestorDocumentos.Models;
 using WPFGestorDocumentos.Utility;
 
 namespace WPFGestorDocumentos.Repositories
@@ -41,7 +41,7 @@ namespace WPFGestorDocumentos.Repositories
                 cmd.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -51,7 +51,7 @@ namespace WPFGestorDocumentos.Repositories
             }
             AddBookToListOnly(book);
         }
-        public static Book Find(long bookId)
+        public static Book? Find(long bookId)
         {
             using SQLiteConnection? con = SQLiteAdapter.GetConnection();
             using var cmd = new SQLiteCommand(con);
@@ -72,7 +72,7 @@ namespace WPFGestorDocumentos.Repositories
                         book.Id = (int) Convert.ToInt64(rdr["id"]);
                         book.Title = (string)rdr["title"];
                         book.Author = (string)rdr["author"];
-                        book.Year = (int) Convert.ToInt64(rdr["year"]);
+                        book.Year = (string) (rdr["year"]);
                         book.Genre = (string)rdr["genre"];
 
                         byte[] img_bytes = (byte[])rdr["cover"];
@@ -87,7 +87,7 @@ namespace WPFGestorDocumentos.Repositories
                 AddBookToListOnly(book);
                 return book;
             }
-            catch (Exception ex)
+            catch
             {
                 
             }
@@ -125,7 +125,7 @@ namespace WPFGestorDocumentos.Repositories
                 cmd.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -155,7 +155,7 @@ namespace WPFGestorDocumentos.Repositories
                 cmd.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -184,7 +184,7 @@ namespace WPFGestorDocumentos.Repositories
                         book.Id = (int)Convert.ToInt64(rdr["id"]);
                         book.Title = (string)rdr["title"];
                         book.Author = (string)rdr["author"];
-                        book.Year = (int)Convert.ToInt64(rdr["year"]);
+                        book.Year = (string)(rdr["year"]);
                         book.Genre = (string)rdr["genre"];
 
                         byte[] img_bytes = (byte[])rdr["cover"];
@@ -198,7 +198,7 @@ namespace WPFGestorDocumentos.Repositories
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -208,7 +208,7 @@ namespace WPFGestorDocumentos.Repositories
             }
         }
 
-        public static List<Book> GetAll()
+        public static List<Book>? GetAll()
         {
             ReadAll();
 

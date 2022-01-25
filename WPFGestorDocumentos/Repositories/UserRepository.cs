@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFGestorDocumentos.Entities;
+using WPFGestorDocumentos.Models;
 
 namespace WPFGestorDocumentos.Repositories
 {

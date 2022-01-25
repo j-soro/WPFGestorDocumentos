@@ -10,18 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPFGestorDocumentos.Views
 {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class MainWindow : Window
     {
-        public LoginView()
+        public MainWindow()
         {
+            this.SizeToContent = SizeToContent.Width;
             InitializeComponent();
         }
     }

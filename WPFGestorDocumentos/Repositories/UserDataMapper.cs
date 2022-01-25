@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFGestorDocumentos.Adapters;
-using WPFGestorDocumentos.Entities;
+using WPFGestorDocumentos.Models;
 using WPFGestorDocumentos.Utility;
 
 namespace WPFGestorDocumentos.Repositories
@@ -34,14 +34,14 @@ namespace WPFGestorDocumentos.Repositories
                 cmd.Parameters.AddWithValue("@id", user.Id);
                 cmd.Parameters.AddWithValue("@username", user.Username);
                 cmd.Parameters.AddWithValue("@password", user.Password);
-                cmd.Parameters.AddWithValue("@firstname", user.FirstName);
-                cmd.Parameters.AddWithValue("@lastname", user.LastName);
+                cmd.Parameters.AddWithValue("@firstname", user.Firstname);
+                cmd.Parameters.AddWithValue("@lastname", user.Lastname);
                 cmd.Parameters.Add(blobParam);
 
                 cmd.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -73,8 +73,8 @@ namespace WPFGestorDocumentos.Repositories
                         user.Id = (int)Convert.ToInt64(rdr["id"]);
                         user.Username = (string)rdr["username"];
                         user.Password = (string)rdr["password"];
-                        user.FirstName = (string)(rdr["firstname"]);
-                        user.LastName = (string)rdr["lastname"];
+                        user.Firstname = (string)(rdr["firstname"]);
+                        user.Lastname = (string)rdr["lastname"];
 
                         byte[] img_bytes = (byte[])rdr["picture"];
                         user.Picture = CUtility.byteArrayToImage(img_bytes);
@@ -85,7 +85,7 @@ namespace WPFGestorDocumentos.Repositories
                 AddUserToListOnly(user);
                 return user;
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -107,7 +107,7 @@ namespace WPFGestorDocumentos.Repositories
                 cmd.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -136,14 +136,14 @@ namespace WPFGestorDocumentos.Repositories
                 cmd.Parameters.AddWithValue("@id", user.Id);
                 cmd.Parameters.AddWithValue("@username", user.Username);
                 cmd.Parameters.AddWithValue("@password", user.Password);
-                cmd.Parameters.AddWithValue("@firstname", user.FirstName);
-                cmd.Parameters.AddWithValue("@lastname", user.LastName);
+                cmd.Parameters.AddWithValue("@firstname", user.Firstname);
+                cmd.Parameters.AddWithValue("@lastname", user.Lastname);
                 cmd.Parameters.Add(blobParam);
 
                 cmd.ExecuteNonQuery();
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -156,8 +156,8 @@ namespace WPFGestorDocumentos.Repositories
             {
                 old.Username = user.Username;
                 old.Password = user.Password;
-                old.FirstName = user.FirstName;
-                old.LastName = user.LastName;
+                old.Firstname = user.Firstname;
+                old.Lastname = user.Lastname;
                 old.Picture = user.Picture;
             }
         }
@@ -181,8 +181,8 @@ namespace WPFGestorDocumentos.Repositories
                         user.Id = (int)Convert.ToInt64(rdr["id"]);
                         user.Username = (string)rdr["username"];
                         user.Password = (string)rdr["password"];
-                        user.FirstName = (string)(rdr["firstname"]);
-                        user.LastName = (string)rdr["lastname"];
+                        user.Firstname = (string)(rdr["firstname"]);
+                        user.Lastname = (string)rdr["lastname"];
 
                         byte[] img_bytes = (byte[])rdr["picture"];
                         user.Picture = CUtility.byteArrayToImage(img_bytes);
@@ -192,7 +192,7 @@ namespace WPFGestorDocumentos.Repositories
                 }
                 rdr.Close();
             }
-            catch (Exception ex)
+            catch
             {
 
             }

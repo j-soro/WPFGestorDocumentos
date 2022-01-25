@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFGestorDocumentos.Entities;
+using WPFGestorDocumentos.Models;
 
 namespace WPFGestorDocumentos.Repositories
 {
@@ -16,7 +16,7 @@ namespace WPFGestorDocumentos.Repositories
             Books = GetAll();
         }
 
-        public List<Book> GetAll()
+        public List<Book>? GetAll()
         {
             return BookDataMapper.GetAll();
         }
@@ -25,7 +25,7 @@ namespace WPFGestorDocumentos.Repositories
         {
             BookDataMapper.Create(book);
         }
-        public Book Read(long bookId)
+        public Book? Read(long bookId)
         {
             return BookDataMapper.Find(bookId);
         }

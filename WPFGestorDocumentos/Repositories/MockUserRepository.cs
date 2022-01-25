@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WPFGestorDocumentos.Entities;
+using WPFGestorDocumentos.Models;
 
 namespace WPFGestorDocumentos.Repositories
 {
@@ -31,6 +31,8 @@ namespace WPFGestorDocumentos.Repositories
 
 
             Users.Add(user);
+
+            return Users;
         }
 
         public User Read(long id)
@@ -45,10 +47,9 @@ namespace WPFGestorDocumentos.Repositories
             {
                 old.Username = user.Username;
                 old.Password = user.Password;
-                old.FirstName = user.FirstName;
-                old.LastName = user.LastName;
+                old.Firstname = user.Firstname;
+                old.Lastname = user.Lastname;
                 old.Picture = user.Picture;
-                old.UserBooks = user.UserBooks;
             }
         }
     }
