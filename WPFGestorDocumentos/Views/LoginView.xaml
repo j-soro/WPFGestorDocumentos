@@ -51,9 +51,5 @@
                 <Button Margin="10 0 0 0" Content="Login"/>
             </StackPanel>
         </Grid>
-
-
-
-
     </Grid>
 </UserControl>

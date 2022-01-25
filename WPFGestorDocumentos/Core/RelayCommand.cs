@@ -22,7 +22,7 @@ namespace WPFGestorDocumentos.Core
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute(parameter) == null || _canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public void Execute(object parameter)
