@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
 namespace WPFGestorDocumentos.Views
 {
     /// <summary>
@@ -45,12 +44,70 @@ namespace WPFGestorDocumentos.Views
         {
             this.Close();
         }
-
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void MoveWindow(object sender, MouseButtonEventArgs e)
         {
-            var move = sender as System.Windows.Controls.Grid;
-            var win = Window.GetWindow(this);
-            win.DragMove();
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+                Point pointToWindow = Mouse.GetPosition(this);
+                Point pointToScreen = PointToScreen(pointToWindow);
+                this.Top = pointToScreen.Y - this.ActualHeight;
+                this.Left = pointToScreen.X - this.ActualWidth;
+            }
+            this.DragMove();
+
+            //bool outOfBounds = (this.Left <= SystemParameters.VirtualScreenLeft) ||
+            //                   (this.Top <= SystemParameters.VirtualScreenTop - this.ActualHeight) ||
+            //                   (SystemParameters.VirtualScreenLeft +
+            //                   SystemParameters.VirtualScreenWidth <= this.Left+this.ActualWidth) ||
+            //                   (SystemParameters.VirtualScreenTop -
+            //                    SystemParameters.VirtualScreenHeight <= this.Top - this.ActualHeight);
+            //if (outOfBounds)
+            //{
+
+
+            //}
         }
+
+        //private Point GetNearestScreenEdge()
+        //{
+        //    Point currentPosCenter = new Point((this.Left + this.Width) / 2, (this.Top - this.Height) / 2);
+
+        //    Point left = new Point(SystemParameters.VirtualScreenLeft, SystemParameters.VirtualScreenHeight / 2);
+        //    Point right = new Point(SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth, SystemParameters.VirtualScreenHeight / 2);
+        //    Point top = new Point(SystemParameters.VirtualScreenWidth / 2, SystemParameters.VirtualScreenHeight);
+        //    Point bottom = new Point(SystemParameters.VirtualScreenWidth / 2, 0);
+
+        //    List<Point> points = new List<Point> { left, top, right, bottom };
+        //    List<double> distances = new List<double>();
+
+        //    foreach (Point p in points)
+        //    {
+        //        double aux = CalculateEuclideanDistanceBetweenTwoPoints(currentPosCenter, p);
+        //        distances.Add(aux);
+        //    }
+
+        //    int res = 0;
+
+        //    res = distances.FindIndex(d => d == distances.Min());
+
+        //    switch (res)
+        //    {
+        //        case 0:
+        //            return new Point(SystemParameters.VirtualScreenLeft, currentPosCenter.Y);
+        //        case 1:
+        //            return new Point(currentPosCenter.X, SystemParameters.VirtualScreenTop);
+        //        case 2:
+        //            return new Point(SystemParameters.VirtualScreenWidth, currentPosCenter.Y);
+        //        case 3:
+        //            return new Point(currentPosCenter.X, 0);
+        //    }
+        //    return currentPosCenter;
+        //}
+
+        //private double CalculateEuclideanDistanceBetweenTwoPoints(Point a, Point b)
+        //{
+        //    return Math.Sqrt((Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2)));
+        //}
     }
 }

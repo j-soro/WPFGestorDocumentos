@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:views="clr-namespace:WPFGestorDocumentos.Views"
         xmlns:viewModel="clr-namespace:WPFGestorDocumentos.Core"
+        xmlns:custom="clr-namespace:WPFGestorDocumentos.CustomControls"
         mc:Ignorable="d"
         
-        Title="" Height="600" Width="900" Icon="../Resources/jsoro.ico"
-        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"        
+        Title="" Icon="../Resources/jsoro.ico"
+         Height="600" Width="900" MinHeight="600" MinWidth="900"
+        WindowStyle="None" ResizeMode="CanResize" WindowStartupLocation="CenterScreen"        
         Background="Transparent" AllowsTransparency="True">
 
     <Window.Resources>
@@ -34,7 +36,7 @@
     <Border Background="#272537" CornerRadius="20">
 
 
-        <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
@@ -45,13 +47,63 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Biblioteca"
+            <Canvas x:Name="canvas"
+                    Grid.ColumnSpan="2"
+                    Background="Transparent"
+                    MouseDown="MoveWindow">
+                <Grid Grid.Row="0" HorizontalAlignment="Stretch"                      
+                      Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}}" 
+                      Height="{Binding ActualHeight, RelativeSource ={RelativeSource AncestorType = {x:Type Window}}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Biblioteca"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Foreground="White"
                    FontSize="22"
-                   Margin="20,0,0,0"
+                   Margin="20,0,200,0"
                    />
+                    <!--<TextBox Width="250"
+                     Height="40"
+                     VerticalContentAlignment="Center"
+                     HorizontalAlignment="Left"
+                     Margin="5 5 200 5"
+                     Grid.Column="1"
+                     Style="{StaticResource ModernTextbox}"/>-->
+
+                    <StackPanel Grid.Column="1"
+                        Width="auto"
+                        Height="auto"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Margin="21"
+                        Visibility="Visible"
+                        >
+                        <Button x:Name="btnMinimize" Click="btnMinimize_Click" Style="{StaticResource vanilla_button}">
+                            <Viewbox>
+                                <Ellipse Height="25" Width="25" Fill="#FFDAD404" Stroke="#FFFDFDFD" StrokeThickness="1" />
+                            </Viewbox>
+                        </Button>
+                        <Button x:Name="btnMaximize" Style="{StaticResource vanilla_button}" Grid.Column="1" Click="btnMaximize_Click">
+                            <Viewbox>
+                                <Ellipse Height="25" Width="25" Fill="#FF18D018" Stroke="#FFFDFDFD" StrokeThickness="1" />
+                            </Viewbox>
+                        </Button>
+                        <Button x:Name="btnClose" Style="{StaticResource vanilla_button}" Grid.Column="2" Click="btnClose_Click">
+                            <Viewbox>
+                                <Ellipse Height="25" Width="25" Fill="#FFEE7408" Stroke="#FFFDFDFD" StrokeThickness="1" />
+                            </Viewbox>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Canvas>
+
 
             <StackPanel Grid.Row="1">
                 <RadioButton Content="Home"
@@ -76,44 +128,11 @@
                              Style="{StaticResource MenuButtonTheme}"/>
             </StackPanel>
 
-            <TextBox Width="250"
-                     Height="40"
-                     VerticalContentAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Margin="5"
-                     Grid.Column="1"
-                     Style="{StaticResource ModernTextbox}"/>
 
-            <StackPanel Grid.Column="1"
-                        Width="auto"
-                        Height="auto"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        Orientation="Horizontal"
-                        Margin="21"
-                        Visibility="Visible"
-                        >
-                <Button x:Name="btnMinimize" Click="btnMinimize_Click" Style="{StaticResource vanilla_button}">
-                    <Viewbox>
-                        <Ellipse Height="25" Width="25" Fill="#FFDAD404" Stroke="#FFFDFDFD" StrokeThickness="1" />
-                    </Viewbox>
-                </Button>
-                <Button x:Name="btnMaximize" Style="{StaticResource vanilla_button}" Grid.Column="1" Click="btnMaximize_Click">
-                    <Viewbox>
-                        <Ellipse Height="25" Width="25" Fill="#FF18D018" Stroke="#FFFDFDFD" StrokeThickness="1" />
-                    </Viewbox>
-                </Button>
-                <Button x:Name="btnClose" Style="{StaticResource vanilla_button}" Grid.Column="2" Click="btnClose_Click">
-                    <Viewbox>
-                        <Ellipse Height="25" Width="25" Fill="#FFEE7408" Stroke="#FFFDFDFD" StrokeThickness="1" />
-                    </Viewbox>
-                </Button>
-
-
-
-            </StackPanel>
 
             <ContentControl Grid.Row="1"
+                      MaxWidth="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}}" 
+                      MaxHeight="{Binding ActualHeight, RelativeSource ={RelativeSource AncestorType = {x:Type Window}}}"
                             Grid.Column="1"
                             Margin="10"
                             Content="{Binding CurrentView}"/>
