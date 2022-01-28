@@ -134,7 +134,7 @@
                       MaxWidth="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}}" 
                       MaxHeight="{Binding ActualHeight, RelativeSource ={RelativeSource AncestorType = {x:Type Window}}}"
                             Grid.Column="1"
-                            Margin="10"
+                            Margin="20"
                             Content="{Binding CurrentView}"/>
 
         </Grid>

@@ -59,13 +59,14 @@ namespace WPFGestorDocumentos.Views
             //bool outOfBounds = (this.Left <= SystemParameters.VirtualScreenLeft) ||
             //                   (this.Top <= SystemParameters.VirtualScreenTop - this.ActualHeight) ||
             //                   (SystemParameters.VirtualScreenLeft +
-            //                   SystemParameters.VirtualScreenWidth <= this.Left+this.ActualWidth) ||
+            //                   SystemParameters.VirtualScreenWidth <= this.Left + this.ActualWidth) ||
             //                   (SystemParameters.VirtualScreenTop -
             //                    SystemParameters.VirtualScreenHeight <= this.Top - this.ActualHeight);
             //if (outOfBounds)
             //{
-
-
+            //    this.Left = SystemParameters.VirtualScreenLeft;
+            //    this.Top = SystemParameters.VirtualScreenTop;
+            //    outOfBounds = false;
             //}
         }
 

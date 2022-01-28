@@ -8,14 +8,14 @@
              d:DesignHeight="480" d:DesignWidth="800">
     <Viewbox StretchDirection="Both" Stretch="Uniform" MaxWidth="1600" MaxHeight="900">
         <StackPanel>
-            <TextBlock Text="Collection"
+            <TextBlock Text="Collections"
                    Foreground="White"
                    FontSize="28"
                    HorizontalAlignment="Left"
                    Margin="0 0 0 20"/>
 
             <StackPanel Orientation="Horizontal">
-                <Border Width="400"
+                <Border Width="800"
                 Height="200">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -27,11 +27,16 @@
                     <Border.Clip>
                         <RectangleGeometry RadiusX="10"
                                        RadiusY="10"
-                                       Rect="0,0,400,200"/>
+                                       Rect="0,0,800,200"/>
                     </Border.Clip>
 
                     <Grid>
-                        <StackPanel>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="96"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0">
                             <TextBlock Text="Colección de libros de ejemplo"
                                    TextWrapping="Wrap"
                                    Foreground="White"
@@ -44,20 +49,33 @@
                                    Margin="20,10,10,0"/>
 
                         </StackPanel>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Border Width="48"
+                        Height="42"
+                        Background="#ffffff"
+                        CornerRadius="10"
+                        Margin="0 0 0 5"/>
+
+                            <Border Width="48"
+                        Height="42"
+                        Background="#ffffff"
+                        CornerRadius="10"
+                        Margin="0 5 0 5"/>
+
+                            <Border Width="48"
+                        Height="42"
+                        Background="#ffffff"
+                        CornerRadius="10"
+                        Margin="0 5 0 0"/>
+
+
+
+
+
+
+
+                        </StackPanel>
                     </Grid>
-                </Border>
-
-                <Border Width="200"
-                    Height="200"
-                    CornerRadius="10"
-                    Margin="45,0,0,0">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="#ffc554" Offset="0.0"/>
-                            <GradientStop Color="#ffb73a" Offset="1"/>
-
-                        </LinearGradientBrush>
-                    </Border.Background>
                 </Border>
             </StackPanel>
 

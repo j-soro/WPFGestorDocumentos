@@ -18,11 +18,32 @@ namespace WPFGestorDocumentos.Views
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class LoginView : Window
     {
         public LoginView()
         {
             InitializeComponent();
+        }
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void MoveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+                Point pointToWindow = Mouse.GetPosition(this);
+                Point pointToScreen = PointToScreen(pointToWindow);
+                this.Top = pointToScreen.Y - this.ActualHeight;
+                this.Left = pointToScreen.X - this.ActualWidth;
+            }
+            this.DragMove();
         }
     }
 }
