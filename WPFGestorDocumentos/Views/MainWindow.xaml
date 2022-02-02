@@ -130,7 +130,7 @@
 
 
 
-            <ContentControl Grid.Row="1"
+            <ContentControl Grid.Row="1" VerticalContentAlignment="Top"
                       MaxWidth="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}}" 
                       MaxHeight="{Binding ActualHeight, RelativeSource ={RelativeSource AncestorType = {x:Type Window}}}"
                             Grid.Column="1"

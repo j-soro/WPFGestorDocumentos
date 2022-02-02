@@ -33,6 +33,16 @@ namespace WPFGestorDocumentos.Models
             Picture = picture;
         }
 
+        public User(int id, string username, string password, string firstname, string lastname)
+        {
+            Id = id;
+            Username = username;
+            Password = password;
+            Firstname = firstname;
+            Lastname = lastname;
+            Picture = picture;
+        }
+
         internal void UpdateUserInfo(User newUserInfo)
         {
             Id = newUserInfo.Id;
