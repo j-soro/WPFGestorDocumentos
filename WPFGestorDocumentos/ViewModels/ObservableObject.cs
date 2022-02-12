@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 
-namespace WPFGestorDocumentos.Core
+namespace WPFGestorDocumentos.ViewModels
 {
     internal class ObservableObject : INotifyPropertyChanged
     {

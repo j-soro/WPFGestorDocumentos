@@ -20,7 +20,7 @@ namespace WPFGestorDocumentos
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Image img = Image.FromFile(@"C:\Users\joaquin\source\repos\WPFGestorDocumentos\WPFGestorDocumentos\placeholder.png");
+            Image img = Image.FromFile(@"C:\Users\joaquin\source\repos\WPFGestorDocumentos\WPFGestorDocumentos\Resources\placeholder.png");
             User s = new User(1, "jsoro", "1234", "Joaquín", "Soro", img);
             Session session = new Session("Sesión principal", s);
 

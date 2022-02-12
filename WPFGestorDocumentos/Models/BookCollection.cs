@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,7 @@ using WPFGestorDocumentos.Models;
 
 namespace WPFGestorDocumentos.Models
 {
-    public class BookCollection
+    public class BookCollection : BindingList<Book>
     {
         public List<Book> Books { get; set; }
         public string Username { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WPFGestorDocumentos.Core
+namespace WPFGestorDocumentos.ViewModels
 {
     internal class RelayCommand : ICommand
     {

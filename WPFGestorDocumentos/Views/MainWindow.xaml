@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:views="clr-namespace:WPFGestorDocumentos.Views"
-        xmlns:viewModel="clr-namespace:WPFGestorDocumentos.Core"
+        xmlns:viewmodels="clr-namespace:WPFGestorDocumentos.ViewModels"
         xmlns:custom="clr-namespace:WPFGestorDocumentos.CustomControls"
         mc:Ignorable="d"
         
@@ -30,7 +30,7 @@
     
     
     <Window.DataContext>
-        <viewModel:MainViewModel/>
+        <viewmodels:MainViewModel/>
     </Window.DataContext>
 
     <Border Background="#272537" CornerRadius="20">
@@ -125,7 +125,8 @@
                              Height="50"
                              Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding UserCollectionsViewCommand}"/>
             </StackPanel>
 
 

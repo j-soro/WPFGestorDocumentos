@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPFGestorDocumentos.Core
+namespace WPFGestorDocumentos.ViewModels
 {
-    internal class DiscoveryViewModel
+    class HomeViewModel
     {
     }
 }

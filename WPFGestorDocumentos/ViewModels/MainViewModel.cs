@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPFGestorDocumentos.Core
+namespace WPFGestorDocumentos.ViewModels
 {
     class MainViewModel : ObservableObject
     {
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand DiscoveryViewCommand { get; set; }
+        public RelayCommand UserCollectionsViewCommand { get; set; }
 
         public HomeViewModel HomeVm { get; set; }
         public DiscoveryViewModel DiscoveryVm { get; set; }
+        public UserCollectionsViewModel UserCollectionsVm { get; set; }
         
         private object _currentView;
 
@@ -30,7 +32,8 @@ namespace WPFGestorDocumentos.Core
         {
             HomeVm = new HomeViewModel();
             DiscoveryVm = new DiscoveryViewModel();
-            CurrentView = HomeVm;
+            UserCollectionsVm = new UserCollectionsViewModel();
+            CurrentView = UserCollectionsVm;
 
             HomeViewCommand = new RelayCommand(o =>
             {
@@ -40,6 +43,11 @@ namespace WPFGestorDocumentos.Core
             DiscoveryViewCommand = new RelayCommand(o =>
             {
                 CurrentView = DiscoveryVm;
+            });
+
+            UserCollectionsViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = UserCollectionsVm;
             });
 
         }

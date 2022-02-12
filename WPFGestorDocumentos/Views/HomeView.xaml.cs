@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPFGestorDocumentos.Core
+namespace WPFGestorDocumentos.Views
 {
     /// <summary>
     /// Interaction logic for HomeView.xaml

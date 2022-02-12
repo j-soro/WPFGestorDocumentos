@@ -9,12 +9,16 @@
 
   <ItemGroup>
     <None Remove="Database\database.db" />
+    <None Remove="placeholder.png" />
     <None Remove="Resources\jsoro.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Database\database.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\placeholder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -36,10 +40,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Core\View\" />
   </ItemGroup>
 
   <ItemGroup>
